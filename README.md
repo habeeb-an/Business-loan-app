@@ -34,9 +34,11 @@ cd business-loan-app
 ```
 
 3. Install project dependencies:
-   ```
+
+```
 npm install
-   ```
+```
+
 4. Set up environment variables:
 
 Create a `.env` file in the project root directory and add the following:
