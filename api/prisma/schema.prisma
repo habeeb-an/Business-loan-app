@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model OAuth2Token {
+  id           Int      @id @default(autoincrement())
+  provider     String
+  id_token      String
+  access_token  String
+  expires_in    Int
+  token_type    String
+  refresh_token String
+  // scope        String[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+model Business {
+  id          Int @id @default(autoincrement())
+  name        String
+  yearEstablished String
+  balanceSheets Balancesheet[]
+}
+model Balancesheet{
+  id          Int @id @default(autoincrement())
+  year        String
+  month       String
+  profitOrLoss String
+  assetsValue String
+  business Business? @relation(fields: [businessId],references: [id])
+  businessId Int?
+  
+}
