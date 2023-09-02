@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL|| 'http://localhost:3000';
+axios.defaults.withCredentials=true;
 function App() {
   const [businessName, setBusinessName] = useState('');
   const [yearEstablished, setYearEstablished] = useState('');
@@ -12,21 +13,32 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post('/submit_application', {
-        businessName,
-        yearEstablished,
-        accountingProvider,
-        loanAmount: parseFloat(loanAmount),
-      });
-
-      setPreAssessment(response.data.preAssessment);
-      setProfitLossSummary(response.data.profitLossSummary);
+    // try {
+    //   const response = await axios.get('/providers/xero/connect', {
+    //     businessName,
+    //     yearEstablished,
+    //     accountingProvider,
+    //     loanAmount: parseFloat(loanAmount),
+    //   });
+    //   console.log(response.data);
+    //   location.href = response.data.consentUrl
+      // setPreAssessment(response.data.preAssessment);
+      // setProfitLossSummary(response.data.profitLossSummary);
       
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
+  };
+
+  async function providerconnect(){
+    try {
+      const response = await axios.get('/providers/xero/connect');
+      console.log(response.data);
+      location.href = response.data.consentUrl
     } catch (error) {
       console.error('Error:', error);
     }
-  };
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -43,7 +55,7 @@ function App() {
               className="mt-1 p-2 border rounded-md w-full"
               value={businessName}
               onChange={(e) => setBusinessName(e.target.value)}
-              required
+              
             />
           </div>
 
@@ -57,7 +69,7 @@ function App() {
               className="mt-1 p-2 border rounded-md w-full"
               value={yearEstablished}
               onChange={(e) => setYearEstablished(e.target.value)}
-              required
+              
             />
           </div>
 
@@ -76,8 +88,16 @@ function App() {
               <option id='MYOB' value="MYOB">MYOB</option>
             </select>
           </div>
-
-          <div className="mb-4">
+          <div className='text-center'>
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-900 text-white  rounded py-2 p-4 mt-4"
+             onClick={()=>providerconnect()}
+          >
+            Connect Provider
+          </button>
+          </div>
+          <div className="my-4">
             <label htmlFor="loanAmount" className="block text-sm font-medium text-gray-700">
               Requested Loan Amount
             </label>
@@ -87,16 +107,17 @@ function App() {
               className="mt-1 p-2 border rounded-md w-full"
               value={loanAmount}
               onChange={(e) => setLoanAmount(e.target.value)}
-              required
+              
             />
           </div>
-
+          <div className='text-center'>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white rounded py-2 px-4 mt-4"
+            className="bg-blue-500 hover:bg-blue-800 text-white rounded py-2 px-4 mt-4"
           >
             Submit Application
           </button>
+          </div>
         </form>
 
         {preAssessment !== null && (
