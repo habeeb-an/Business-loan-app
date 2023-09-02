@@ -32,6 +32,9 @@ model Business {
   id          Int @id @default(autoincrement())
   name        String
   yearEstablished String
+  assetsValue     String
+  BalancesheetYear String
+  Balancesheetmonth String
   balanceSheets Balancesheet[]
 }
 model Balancesheet{

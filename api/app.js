@@ -15,10 +15,13 @@ app.use(cors({
   origin:allowedOrigins,
 }));
 app.use(session({
-  secret: 'your-secret-key', // Replace with a strong, random secret
+  secret: 'your-secret-key', // Replace 
   resave: false,
   saveUninitialized: true,
-  // You can customize other options as needed
+  store: new session.MemoryStore({
+    checkPeriod: 86400000, // How often expired sessions will be cleared (in milliseconds)
+  }),
+
 }));
 
 var providerRouter = require('./routes/providers');

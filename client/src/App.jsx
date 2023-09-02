@@ -9,26 +9,10 @@ function App() {
   const [loanAmount, setLoanAmount] = useState('');
   const [preAssessment, setPreAssessment] = useState('test');
   const [profitLossSummary, setProfitLossSummary] = useState([]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // try {
-    //   const response = await axios.get('/providers/xero/connect', {
-    //     businessName,
-    //     yearEstablished,
-    //     accountingProvider,
-    //     loanAmount: parseFloat(loanAmount),
-    //   });
-    //   console.log(response.data);
-    //   location.href = response.data.consentUrl
-      // setPreAssessment(response.data.preAssessment);
-      // setProfitLossSummary(response.data.profitLossSummary);
-      
-    // } catch (error) {
-    //   console.error('Error:', error);
-    // }
-  };
+  const [BalancesheetYear, setBalancesheetYear] = useState('');
+  const [BalancesheetMonth, setBalancesheetMonth] = useState('');
+  const [assetsValue, setassetsValue] = useState('');
+  
 
   async function providerconnect(){
     try {
@@ -39,6 +23,33 @@ function App() {
       console.error('Error:', error);
     }
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.get('/balance-sheet/xero/balancesheet', {
+        // businessName,
+        // yearEstablished,
+        // accountingProvider,
+        // loanAmount: parseFloat(loanAmount),
+        params: {
+
+        },
+      });
+      console.log(response.data);
+      location.href = response.data.consentUrl
+      setProfitLossSummary(response.data.profitOrLoss);
+      setBalancesheetMonth(response.data.year)
+      setBalancesheetYear(response.data.month)
+      setassetsValue(response.data.assetsValue)
+      
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -90,7 +101,7 @@ function App() {
           </div>
           <div className='text-center'>
           <button
-            type="submit"
+            type="button"
             className="bg-blue-500 hover:bg-blue-900 text-white  rounded py-2 p-4 mt-4"
              onClick={()=>providerconnect()}
           >
@@ -125,7 +136,10 @@ function App() {
             <h2 className="text-xl font-semibold">Application Result</h2>
             <p><span className="font-semibold">Business Name:</span> {businessName}</p>
             <p><span className="font-semibold">Year Established:</span> {yearEstablished}</p>
-            <p><span className="font-semibold">Pre-Assessment:</span> {preAssessment}</p>
+            <p><span className="font-semibold">BalancesheetMonth:</span> {BalancesheetMonth}</p>
+            <p><span className="font-semibold">BalancesheetYear:</span> {BalancesheetYear}</p>
+            <p><span className="font-semibold">assetsValue:</span> {assetsValue}</p>
+            <p><span className="font-semibold">profitLossSummary:</span> {profitLossSummary}</p>
 
             <h3 className="text-lg font-semibold mt-4">Profit/Loss Summary</h3>
             <ul className="list-disc pl-6 mt-2">
