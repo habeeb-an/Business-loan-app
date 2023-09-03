@@ -26,8 +26,7 @@ app.use(session({
 
 var providerRouter = require('./routes/providers');
 var balancesheetRouter = require('./routes/balancesheetprofit.js');
-const { balancesheet } = require('./prisma');
-
+var PreaccessmentRouter = require('./routes/preassessment.js');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -36,6 +35,7 @@ app.use(cookieParser());
 
 app.use('/providers', providerRouter);
 app.use('/balance-sheet', balancesheetRouter);
+app.use('/preassessment', PreaccessmentRouter);
 
 
 module.exports = app;

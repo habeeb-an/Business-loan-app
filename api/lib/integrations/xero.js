@@ -37,8 +37,8 @@ console.log('at xero.js')
   const getAccountsResponse = await xero.accountingApi.getAccounts(tenantId);
   console.log('accountresponce',getAccountsResponse.body[0]);
 
-  const balsheetDate = "2023-09-02";;
-const balsheetPeriods = 7;
+  const balsheetDate = "";;
+const balsheetPeriods = 11;
 const balsheetTimeframe = "MONTH";
 const balsheetTrackingOptionID1 = undefined;
 const balsheetTrackingOptionID2 = undefined;
@@ -48,36 +48,16 @@ const balsheetPaymentsOnly = false;
 const getBalanceSheetResponse = await xero.accountingApi.getReportBalanceSheet(tenantId, balsheetDate, balsheetPeriods, balsheetTimeframe, balsheetTrackingOptionID1, balsheetTrackingOptionID2, balsheetStandardLayout, balsheetPaymentsOnly);
 const rows = getBalanceSheetResponse.body.reports[0].rows;
 
-// Find the headers (month names)
 const headerRow = rows.find(row => row.rowType === 'Header');
-const monthHeaders = headerRow.cells.map(cell => cell.value);
-
 const netAssetsSection = rows.find(row => row.rowType === 'Section' && row.title === ''&& row.rows[0].cells[0].value === 'Net Assets'); 
 const netAssetsRow = netAssetsSection.rows[0];
 
-const sheet = [];
-//code of sheet
-// for (let i=1; i<netAssetsRow.cells.length; i++) {
-
-//   const headerCell = headerRow.cells[i];
-//   const netAssetValueCell = netAssetsRow.cells[i];
-//   const dateformat=headerCell.value.split(' ')
-//   const month=dateformat[1];
-//   const year=dateformat[2]
-
-//   sheet.push({
-//     year,
-//     month,
-//     profitOrLoss:s,
-//     assetsValue: netAssetValueCell.value
-//   });
-// }
 
 //ProfitorlossAPI
 
-  const plFromDate = "2023-01-01"; 
-  const plToDate = "2023-09-02"
-  const plPeriods = 7;
+  const plFromDate = ""; 
+  const plToDate = ""
+  const plPeriods = 11;
   const plTimeframe = "MONTH";
   const plTrackingCategoryID = undefined;
   const plTrackingOptionID = undefined;
@@ -91,6 +71,7 @@ const sheet = [];
   const netptofitsection = profitloss.rows.find(row => row.rowType === 'Section' && row.title === '' && row.rows[0].cells[0].value === 'Net Profit');
   const netProfitRow = netptofitsection.rows[0];
 
+  const sheet = [];
 
   for (let i=1; i<netAssetsRow.cells.length; i++) {
     const headerCell = headerRow.cells[i];
@@ -111,14 +92,11 @@ const sheet = [];
   console.log({profitOrLoss:netProfitValueCell.value});
 
   }
-  console.log("Net Assets (Month-wise):", sheet);
+  console.log("Net Assets (Month-wise):", {sheet});
 
-  return {
-    sheet
-  };
-  //netprofit
-   
-return 
+  return sheet
+  
+
          
 }
 

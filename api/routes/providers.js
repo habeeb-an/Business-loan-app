@@ -34,14 +34,7 @@ router.get("/:provider/callback",async (req,res) => {
       req.session.tokenSet = tokenSet;
       req.session.tenantId= tenantId;
 
-
-      
-    
      await xero.initializeXeroClient();
-
-      
-
-
 
       // const tokenSave= await prisma.oAuth2Token.create({
       //     data :{

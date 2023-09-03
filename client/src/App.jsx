@@ -7,7 +7,7 @@ function App() {
   const [yearEstablished, setYearEstablished] = useState('');
   const [accountingProvider, setAccountingProvider] = useState('Xero');
   const [loanAmount, setLoanAmount] = useState('');
-  const [preAssessment, setPreAssessment] = useState('test');
+  const [preAssessment, setPreAssessment] = useState('');
   const [profitLossSummary, setProfitLossSummary] = useState([]);
   const [BalancesheetYear, setBalancesheetYear] = useState('');
   const [BalancesheetMonth, setBalancesheetMonth] = useState('');
@@ -31,24 +31,28 @@ function App() {
     try {
       const response = await axios.get('/balance-sheet/xero/balancesheet', {
         params: {
+          
 
         },
       });
       {}
-      setSheet(response.data.sheet)
-      console.log({sheet});
+      setSheet(response.data)
+      console.log(response.data);
+
+      const response2 = await axios.post('/preassessment/xero/balancesheet', {
+        loanAmount: loanAmount, // Send loanAmount in the request body
+      });
+      setPreAssessment(response2.data.preAssessment)
+      
 
       // location.href = response.data.consentUrl
 
-      // setProfitLossSummary(response.data.profitOrLoss);
-      // setBalancesheetMonth(response.data.year)
-      // setBalancesheetYear(response.data.month)
-      // setassetsValue(response.data.assetsValue)
       
     } catch (error) {
       console.error('Error:', error);
     }
   };
+
 
   
 
@@ -119,6 +123,7 @@ function App() {
               className="mt-1 p-2 border rounded-md w-full"
               value={loanAmount}
               onChange={(e) => setLoanAmount(e.target.value)}
+              required
               
             />
           </div>
@@ -132,11 +137,12 @@ function App() {
           </div>
         </form>
 
-        {preAssessment !== null && (
+        {sheet !== null && (
           <div className="mt-6">
             <h2 className="text-xl font-semibold">Application Review</h2>
             <p><span className="font-semibold">Business Name:</span> {businessName}</p>
             <p><span className="font-semibold">Year Established:</span> {yearEstablished}</p>
+            <p><span className="font-semibold">Presassessment Value:</span> {preAssessment}%</p>
            
             <h3 className="text-lg font-semibold mt-4">Summary</h3>
             {sheet && sheet.length > 0 &&(
