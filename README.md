@@ -27,21 +27,13 @@ Oauth2
 https://github.com/habeeb-an/Business-loan-app.git
 ```
 
-2. Navigate to the project directory:
-   
-```
-cd business-loan-app
-
-```
-
-3. Install project dependencies:
+2. Install project dependencies:
 
 ```
 npm install
 ```
 
-4. 
-5. Build and run Docker containers:
+3. Build and run Docker containers:
 ```
 docker-compose up --build
 ```
@@ -49,7 +41,7 @@ or (according to you system setup)
 ```
 docker compose up --build
 ```
-6. In order to setup locally
+4. In order to setup locally
 
 Baceknd setup
 ```
