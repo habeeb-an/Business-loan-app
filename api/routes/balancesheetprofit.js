@@ -20,6 +20,7 @@ router.get('/:provider/balancesheet',async (req,res)=>{
             
         }catch(e){
             console.log('error catched at balancesheetprofit')
+            console.log('May be you need to reconnect to provider:server may be restarted')
             console.error(e)
         }
 

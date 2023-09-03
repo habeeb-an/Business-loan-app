@@ -19,14 +19,15 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   store: new session.MemoryStore({
-    checkPeriod: 86400000, // How often expired sessions will be cleared (in milliseconds)
+    checkPeriod: 86400000, 
   }),
 
 }));
 
 var providerRouter = require('./routes/providers');
 var balancesheetRouter = require('./routes/balancesheetprofit.js');
-var PreaccessmentRouter = require('./routes/preassessment.js');
+var preaccessmentRouter = require('./routes/preassessment.js');
+var decisionEngineRouter = require('./routes/decisonengine.js');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -35,7 +36,8 @@ app.use(cookieParser());
 
 app.use('/providers', providerRouter);
 app.use('/balance-sheet', balancesheetRouter);
-app.use('/preassessment', PreaccessmentRouter);
+app.use('/preassessment', preaccessmentRouter);
+app.use('/decisionengine', decisionEngineRouter);
 
 
 module.exports = app;
