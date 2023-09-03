@@ -9,7 +9,7 @@ const cors=require('cors');
 
 var app = express();
 
-const allowedOrigins = ['http://localhost:5173', 'https://yourfrontend.com'];
+const allowedOrigins = ['http://localhost:5173',];
 app.use(cors({
   credentials:true,
   origin:allowedOrigins,
