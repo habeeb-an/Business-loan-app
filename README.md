@@ -13,10 +13,11 @@ Welcome to the Business-loan-app!.
 - Prisma
 - MySQL
 - Docker
-
-## Database Schema
-
-The database schema consists of three main models: User, Data, and Profile.
+  
+## API integration
+Xero
+## Auth workflow
+Oauth2
 
 
 ## Instructions to Run the Code
@@ -39,14 +40,7 @@ cd business-loan-app
 npm install
 ```
 
-4. Set up environment variables:
-
-Create a `.env` file in the project root directory and add the following:
-```
-DATABASE_URL="mysql://newuser:password@mysql:3306/backendtest"
-JWT_SECRET_KEY="your-secret-key"
-```
-
+4. 
 5. Build and run Docker containers:
 ```
 docker-compose up --build
@@ -56,22 +50,19 @@ or (according to you system setup)
 docker compose up --build
 ```
 6. In order to setup locally
-```
-npx nodemon index.js
-```
-```
-npx prisma migrate dev --name init
-```
-7. Access the API:
 
-The API will be available at `http://localhost:3000/api`.
+Baceknd setup
+```
+cd api
+npm start
+```
+Frontend setup
 
-## API Endpoints
+```
+cd client
+npm run dev
+```
 
-- POST `/api/
-- GET `/api/
-- UPDATE `/api/
-- DELETE `/api/
 
 ## Contributing
 
