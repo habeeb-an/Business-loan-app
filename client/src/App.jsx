@@ -12,6 +12,7 @@ function App() {
   const [BalancesheetYear, setBalancesheetYear] = useState('');
   const [BalancesheetMonth, setBalancesheetMonth] = useState('');
   const [assetsValue, setassetsValue] = useState('');
+  const [sheet, setSheet] = useState('');
   
 
   async function providerconnect(){
@@ -29,20 +30,20 @@ function App() {
 
     try {
       const response = await axios.get('/balance-sheet/xero/balancesheet', {
-        // businessName,
-        // yearEstablished,
-        // accountingProvider,
-        // loanAmount: parseFloat(loanAmount),
         params: {
 
         },
       });
-      console.log(response.data);
-      location.href = response.data.consentUrl
-      setProfitLossSummary(response.data.profitOrLoss);
-      setBalancesheetMonth(response.data.year)
-      setBalancesheetYear(response.data.month)
-      setassetsValue(response.data.assetsValue)
+      {}
+      setSheet(response.data.sheet)
+      console.log({sheet});
+
+      // location.href = response.data.consentUrl
+
+      // setProfitLossSummary(response.data.profitOrLoss);
+      // setBalancesheetMonth(response.data.year)
+      // setBalancesheetYear(response.data.month)
+      // setassetsValue(response.data.assetsValue)
       
     } catch (error) {
       console.error('Error:', error);
@@ -126,29 +127,43 @@ function App() {
             type="submit"
             className="bg-blue-500 hover:bg-blue-800 text-white rounded py-2 px-4 mt-4"
           >
-            Submit Application
+            Review Details
           </button>
           </div>
         </form>
 
         {preAssessment !== null && (
           <div className="mt-6">
-            <h2 className="text-xl font-semibold">Application Result</h2>
+            <h2 className="text-xl font-semibold">Application Review</h2>
             <p><span className="font-semibold">Business Name:</span> {businessName}</p>
             <p><span className="font-semibold">Year Established:</span> {yearEstablished}</p>
-            <p><span className="font-semibold">BalancesheetMonth:</span> {BalancesheetMonth}</p>
-            <p><span className="font-semibold">BalancesheetYear:</span> {BalancesheetYear}</p>
-            <p><span className="font-semibold">assetsValue:</span> {assetsValue}</p>
-            <p><span className="font-semibold">profitLossSummary:</span> {profitLossSummary}</p>
-
-            <h3 className="text-lg font-semibold mt-4">Profit/Loss Summary</h3>
-            <ul className="list-disc pl-6 mt-2">
-              {profitLossSummary.map((entry, index) => (
-                <li key={index}>
-                  Year: {entry.year}, Month: {entry.month}, Profit/Loss: {entry.profitOrLoss}, Assets Value: {entry.assetsValue}
-                </li>
-              ))}
-            </ul>
+           
+            <h3 className="text-lg font-semibold mt-4">Summary</h3>
+            {sheet && sheet.length > 0 &&(
+      <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Financial Data</h1>
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead>
+          <tr>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Year</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Month</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profit/Loss</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assets Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sheet.map((item, index) => (
+            <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+              <td className="px-6 py-4 whitespace-nowrap">{item.year}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{item.month}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{item.profitOrLoss}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{item.assetsValue}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+      )}
           </div>
         )}
       </div>
