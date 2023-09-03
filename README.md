@@ -1,7 +1,7 @@
 # Business-loan-app
 
 Welcome to the Business-loan-app!.
-
+This project aims to develop a straightforward yet functional Business Loan Application System consisting of both frontend and backend components. The primary objective is to provide users with a seamless experience when applying for a business loan. The system integrates with third-party providers , specifically a Decision Engine and Accounting Software providers(Xero and MYOB), to facilitate the loan application process.
 ...
 
 ## Framework and Dependencies
