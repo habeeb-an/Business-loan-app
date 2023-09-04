@@ -1,3 +1,4 @@
+// XERO API integrated succusfully(not simulation)
 const { XeroClient } = require("xero-node");
 const scopes = "offline_access openid profile email accounting.transactions accounting.budgets.read accounting.reports.read accounting.journals.read accounting.settings accounting.settings.read accounting.contacts accounting.contacts.read accounting.attachments accounting.attachments.read files files.read assets assets.read projects projects.read payroll.employees payroll.payruns payroll.payslip payroll.timesheets payroll.settings";
 const xero = new XeroClient({
@@ -34,10 +35,8 @@ console.log('at xero.js')
 
   await xero.setTokenSet(tokenSet)
   await xero.updateTenants(false)
-  const getAccountsResponse = await xero.accountingApi.getAccounts(tenantId);
-  console.log('accountresponce',getAccountsResponse.body[0]);
 
-  const balsheetDate = "";;
+const balsheetDate = "";;
 const balsheetPeriods = 11;
 const balsheetTimeframe = "MONTH";
 const balsheetTrackingOptionID1 = undefined;

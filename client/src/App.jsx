@@ -5,7 +5,7 @@ axios.defaults.withCredentials=true;
 function App() {
   const [businessName, setBusinessName] = useState('');
   const [yearEstablished, setYearEstablished] = useState('');
-  const [accountingProvider, setAccountingProvider] = useState('xero');
+  const [provider, setProvider] = useState('xero');
   const [loanAmount, setLoanAmount] = useState('');
   const [preAssessment, setPreAssessment] = useState(null);
   const [profitLossSummary, setProfitLossSummary] = useState([]);
@@ -29,7 +29,7 @@ function App() {
  
   async function providerconnect(){
     try {
-      const response = await axios.get(`/providers/${accountingProvider}/connect`);
+      const response = await axios.get(`/providers/${provider}/connect`);
       console.log(response.data);
       location.href = response.data.consentUrl
     } catch (error) {
@@ -41,7 +41,7 @@ function App() {
     e.preventDefault();
 
     try {
-      const response = await axios.get(`/balance-sheet/${accountingProvider}/balancesheet`, {
+      const response = await axios.get(`/balance-sheet/${provider}/balancesheet`, {
         params: {
           
 
@@ -108,12 +108,12 @@ function App() {
             <select
               id="accountingProvider"
               className="mt-1 p-2 border rounded-md w-full"
-              value={accountingProvider}
-              onChange={(e) => setAccountingProvider(e.target.value)}
+              value={provider}
+              onChange={(e) => setProvider(e.target.value)}
               required
             >
               <option id='xero'value="xero">Xero</option>
-              <option id='MYOB' value="MYOB">MYOB:not ready</option>
+              <option id='myob' value="myob">MYOB</option>
             </select>
           </div>
           <div className='text-center'>
