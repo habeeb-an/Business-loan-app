@@ -14,8 +14,9 @@ This project aims to develop a straightforward yet functional Business Loan Appl
 - Docker
   
 ## API integration
-Xero
-MYOB (simulaiton)
+- Xero
+- MYOB (simulaiton)
+
 ## Auth workflow
 Oauth2
 
