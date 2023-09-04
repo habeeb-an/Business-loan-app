@@ -15,6 +15,7 @@ This project aims to develop a straightforward yet functional Business Loan Appl
   
 ## API integration
 Xero
+MYOB (simulaiton)
 ## Auth workflow
 Oauth2
 
@@ -30,6 +31,34 @@ https://github.com/habeeb-an/Business-loan-app.git
 
 ```
 npm install
+```
+Set XeroClient credentails 
+```
+  clientId: "###########################################",
+  
+  clientSecret: "############**********#################",
+  
+  redirectUris: ["http://localhost:3000/providers/xero/callback"],
+```
+  
+Which can be created by these steps
+
+1. Set Up a Xero Account:
+
+If you don't already have a Xero account, sign up for one at Xero's website. https://developer.xero.com/
+
+2. Create a Xero App:
+
+ Log in to your Xero account and go to the Xero Developer Dashboard.
+Create a new app to obtain API keys (OAuth 2.0 Client ID and Client Secret) that will allow your application to access Xero's API.
+
+3. Develop or Configure Your Application:
+
+If you're building a custom application, you'll need to develop it to communicate with Xero's API using the API keys you obtained earlier.
+If you're using an integration platform, configure it to connect with Xero using the provided API keys.
+at
+```
+api/lib/integrations/xero.js
 ```
 
 3. to setup locally
